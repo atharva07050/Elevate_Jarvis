@@ -3,6 +3,8 @@ import { User, Activity, MessageSquare, Clock, BookOpen, AlertCircle, Bot } from
 
 export default function EvaluationForm({ onSubmit, isSubmitting }) {
   const [formData, setFormData] = useState({
+    name: '',
+    role: '',
     aptitude_score: '',
     technical_score: '',
     interview_score: '',
@@ -36,6 +38,18 @@ export default function EvaluationForm({ onSubmit, isSubmitting }) {
         <div className="form-grid">
           {/* Column 1 */}
           <div>
+            <div className="form-group">
+              <label><User size={16} /> Candidate Name</label>
+              <input
+                type="text"
+                name="name"
+                required
+                className="form-control"
+                placeholder="e.g. Jane Doe"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
             <div className="form-group">
               <label><Activity size={16} /> Aptitude Score (0-100)</label>
               <input
@@ -94,6 +108,18 @@ export default function EvaluationForm({ onSubmit, isSubmitting }) {
 
           {/* Column 2 */}
           <div>
+            <div className="form-group">
+              <label><BookOpen size={16} /> Target Role</label>
+              <input
+                type="text"
+                name="role"
+                required
+                className="form-control"
+                placeholder="e.g. Frontend Engineer"
+                value={formData.role}
+                onChange={handleChange}
+              />
+            </div>
             <div className="form-group">
               <label><BookOpen size={16} /> Strong Topics</label>
               <input

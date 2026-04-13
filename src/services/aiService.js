@@ -46,14 +46,45 @@ export const generateEvaluation = async (data) => {
           summary += "The candidate struggles with core technical concepts. Considerable remedial effort is necessary before they can be considered for placement opportunities.";
       }
 
+      // Extract improvements
+      const improvements = weaknesses.length 
+        ? weaknesses.map(w => `Focus heavily on mastering ${w} concepts and edge cases.`)
+        : ["Continue exploring advanced system scaling paradigms"];
+
       resolve({
+          name: data.name || "Candidate",
+          role: data.role || "Software Engineer",
+          subtitle: "Placement Readiness Assessment",
+          tagline: "This report provides an AI-driven evaluation of the candidate's placement readiness.",
+          
           skillScore,
           communicationScore: commScore,
           problemSolvingScore: problemSolvingScore,
+          
+          scoreInterpretations: {
+            skill: skillScore >= 80 ? "Exceptional grasp of core competencies." : skillScore >= 60 ? "Solid foundation, requires minor polish." : "Needs substantial technical foundation work.",
+            communication: commScore >= 80 ? "Articulate and structured." : commScore >= 60 ? "Clear, but lacks advanced presentation skills." : "Often unclear or disjointed.",
+            problemSolving: problemSolvingScore >= 80 ? "Rapid and highly optimized logic." : problemSolvingScore >= 60 ? "Capable, but relies on brute force." : "Struggles with algorithmic logic."
+          },
+
           summary,
-          strengths: strengths.length ? strengths : ["General Technical Fundamentals"],
-          weaknesses: weaknesses.length ? weaknesses : ["Advanced System Architecture"],
-          hiringStatus: status
+          strengths: strengths.length ? strengths : ["Algorithm Execution", "System Logic"],
+          weaknesses: weaknesses.length ? weaknesses : ["Architectural Design", "Advanced Tooling"],
+          improvementSuggestions: improvements,
+          
+          detailedAnalysis: {
+            technical: `The candidate performed with a technical score of ${data.technical_score||0}, showing proficiency in expected syntaxes but demonstrating gaps in deep conceptual abstraction.`,
+            communication: `Feedback indicates the candidate is '${data.communication_feedback || "communicative"}'. They should focus on structuring extended technical explanations more securely.`,
+            problemSolving: `Achieved an aptitude evaluation of ${data.aptitude_score||0}, which points to an adequate baseline for analytical challenges, though optimizations could be faster.`
+          },
+
+          recommendations: {
+            shortTerm: ["Complete 3 mock interviews prioritizing structured communication.", "Review the fundamental theory for identified weak topics.", "Attempt 5 easy-level architectural design problems."],
+            longTerm: ["Build a full-stack side project implementing CI/CD pipelines.", "Contribute to an open source project to understand large codebases.", "Consistently practice medium-level algorithmic questions."]
+          },
+
+          hiringStatus: status,
+          hiringDecisionJustification: status === "Ready for Placement" ? "Strong aggregate performance across all vital engineering requirements." : "Significant technical and conceptual gaps prevent operational deployment at this level."
       });
     }, MOCK_DELAY);
   });
