@@ -1,7 +1,7 @@
 import React from 'react';
-import { CheckCircle, ArrowLeft, Star, TrendingUp, AlertTriangle, MessageCircle, BarChart2 } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Star, TrendingUp, AlertTriangle, MessageCircle, BarChart2, BookOpen } from 'lucide-react';
 
-export default function ReportCard({ report, onReset }) {
+export default function ReportCard({ report, onReset, onGeneratePlan }) {
   if (!report) return null;
 
   const getStatusBadge = (status) => {
@@ -95,9 +95,12 @@ export default function ReportCard({ report, onReset }) {
         </div>
       </div>
 
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
         <button onClick={onReset} className="btn btn-secondary">
           <ArrowLeft size={18} /> Evaluate Another Candidate
+        </button>
+        <button onClick={() => onGeneratePlan(report.weaknesses.join(', '))} className="btn btn-primary" style={{ background: 'linear-gradient(135deg, #f472b6, #c084fc)' }}>
+          <BookOpen size={18} /> Generate Mentor Plan
         </button>
       </div>
 

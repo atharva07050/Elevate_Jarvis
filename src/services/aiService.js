@@ -58,3 +58,33 @@ export const generateEvaluation = async (data) => {
     }, MOCK_DELAY);
   });
 };
+
+export const generateMentorPlan = async (weakTopicsString) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Split weak topics from comma-separated string
+      const topics = weakTopicsString ? weakTopicsString.split(',').map(s => s.trim()).filter(Boolean) : [];
+      
+      const plans = topics.map((topic) => {
+        return {
+          topic: topic,
+          explanation: `A highly critical area in most modern software engineering technical interviews. Getting comfortable with ${topic} is paramount for placement success.`,
+          keyConcepts: ["Data Structures & Operations", "Algorithmic Efficiency", "Real-world System Applications"],
+          youtubeLink: `https://www.youtube.com/results?search_query=${encodeURIComponent(topic + ' interview prep tutorial')}`,
+          notes: [
+            "Review the foundational theory carefully.",
+            "Write code on paper or a whiteboard without relying on an IDE.",
+            "Analyze time and space complexity automatically for every approach."
+          ],
+          practiceQuestions: [
+            `Implement the most standard algorithm related to ${topic}.`,
+            `Solve an easy-level leetcode problem concerning ${topic}.`,
+            `Explain the worst-case scenario failures for ${topic}.`
+          ]
+        };
+      });
+
+      resolve(plans);
+    }, MOCK_DELAY);
+  });
+};
