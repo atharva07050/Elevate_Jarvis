@@ -106,7 +106,7 @@ export default function App() {
               <GraduationCap className="h-6 w-6" />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-primary">Saarthi</h1>
+              <h1 className="text-xl font-bold tracking-tight text-white">Saarthi</h1>
               <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest">The Placement Prep Hub</p>
             </div>
           </div>
