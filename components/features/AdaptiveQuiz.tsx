@@ -247,7 +247,7 @@ export default function AdaptiveQuiz() {
       <div className="max-w-3xl mx-auto space-y-6">
          <div className="flex items-center justify-between mb-4">
            <Badge variant="secondary"><BrainCircuit className="w-3 h-3 mr-1"/> Q{currentIndex + 1} of {questions.length}</Badge>
-           <div className={`flex items-center gap-2 font-mono \${timeLeft <= 10 ? 'text-rose-500' : 'text-primary'}`}>
+           <div className={`flex items-center gap-2 font-mono ${timeLeft <= 10 ? 'text-rose-500' : 'text-primary'}`}>
              <Timer className="w-4 h-4" /> 00:{timeLeft.toString().padStart(2, '0')}
            </div>
          </div>
@@ -300,8 +300,8 @@ export default function AdaptiveQuiz() {
              </div>
 
              {isAnswered && (
-                 <div className={`p-4 rounded-xl text-sm \${selectedAnswer.toLowerCase() === q.correctAnswer.toLowerCase() ? 'bg-emerald-500/10 text-emerald-300' : 'bg-rose-500/10 text-rose-300'}`}>
-                     <p className="font-bold mb-1">{selectedAnswer.toLowerCase() === q.correctAnswer.toLowerCase() ? 'Correct!' : \`Incorrect. The answer is \${q.correctAnswer}\`}</p>
+                 <div className={`p-4 rounded-xl text-sm ${selectedAnswer.toLowerCase() === q.correctAnswer.toLowerCase() ? 'bg-emerald-500/10 text-emerald-300' : 'bg-rose-500/10 text-rose-300'}`}>
+                     <p className="font-bold mb-1">{selectedAnswer.toLowerCase() === q.correctAnswer.toLowerCase() ? 'Correct!' : `Incorrect. The answer is ${q.correctAnswer}`}</p>
                      <p>{q.explanation}</p>
                  </div>
              )}
