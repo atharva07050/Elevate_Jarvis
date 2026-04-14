@@ -155,3 +155,96 @@ export async function sendMockInterviewMessage(
     }
   }
 }
+
+/**
+ * AI Recruiter Evaluation (Aastha's Feature)
+ */
+export async function generateEvaluation(data: any) {
+  const prompt = `
+You are an expert AI Tech Recruiter.
+Analyze the following student performance data and generate a professional, structured recruiter evaluation report.
+
+Student Data:
+${JSON.stringify(data, null, 2)}
+
+Provide your output as a valid JSON object matching the following structure exactly:
+{
+  "name": "string",
+  "role": "string",
+  "subtitle": "Placement Readiness Assessment",
+  "tagline": "This report provides an AI-driven evaluation of the candidate's placement readiness.",
+  "skillScore": number (0-100),
+  "communicationScore": number (0-100),
+  "problemSolvingScore": number (0-100),
+  "scoreInterpretations": {
+    "skill": "string",
+    "communication": "string",
+    "problemSolving": "string"
+  },
+  "summary": "string",
+  "strengths": ["string"],
+  "weaknesses": ["string"],
+  "improvementSuggestions": ["string"],
+  "detailedAnalysis": {
+    "technical": "string",
+    "communication": "string",
+    "problemSolving": "string"
+  },
+  "recommendations": {
+    "shortTerm": ["string", "string"],
+    "longTerm": ["string"]
+  },
+  "hiringStatus": "Ready for Placement" | "Needs Improvement" | "High Risk Candidate",
+  "hiringDecisionJustification": "string"
+}
+`;
+
+  try {
+    const json = await executeWithFallbackJSON(prompt);
+    return json;
+  } catch (err) {
+    console.error("AI Evaluation generation failed.");
+    throw err;
+  }
+}
+
+/**
+ * AI Mentor Plan (Aastha's Feature)
+ */
+export async function generateMentorPlan(weakTopicsString: string) {
+  const prompt = `
+You are an intelligent career assistant integrated into Saarthi AI.
+Analyze the student's weak topics and recommend high-quality learning resources.
+
+Weak Topics: "${weakTopicsString}"
+
+Return a valid JSON array matching this exact schema:
+[
+  {
+    "topic": "string",
+    "weaknessLevel": "Low | Medium | High",
+    "resources": [
+      {
+        "title": "string",
+        "url": "string"
+      }
+    ],
+    "reason": "string"
+  }
+]
+`;
+
+  try {
+    const json = await executeWithFallbackJSON(prompt);
+    return Array.isArray(json) ? json : [json];
+  } catch (err) {
+    console.error("Mentor Plan generation failed.");
+    const topics = weakTopicsString.split(',').map(s => s.trim()).filter(Boolean);
+    return topics.map(topic => ({
+      topic,
+      weaknessLevel: "High",
+      reason: "Master this core topic thoroughly.",
+      resources: [{ title: "Search on YouTube", url: `https://www.youtube.com/results?search_query=${encodeURIComponent(topic)}` }]
+    }));
+  }
+}
