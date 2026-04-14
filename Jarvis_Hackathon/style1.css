@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f172a;
+    overflow: hidden;
+}
+
+/* Background glow */
+body::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: #6366f1;
+    filter: blur(200px);
+    animation: moveGlow 8s infinite alternate;
+}
+
+@keyframes moveGlow {
+    0% { transform: translate(-200px, -200px); }
+    100% { transform: translate(200px, 200px); }
+}
+
+.container {
+    text-align: center;
+}
+
+/* BRAND */
+.brand h1 {
+    font-size: 48px;
+    font-weight: bold;
+    background: linear-gradient(90deg, #6366f1, #22c55e);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.brand p {
+    color: #aaa;
+    margin-bottom: 30px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Login Box */
+.login-box {
+    width: 360px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-box h2 {
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #888;
+    outline: none;
+    color: #fff;
+}
+
+.input-box label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    transition: 0.3s;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -8px;
+    font-size: 12px;
+    color: #6366f1;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background: #6366f1;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s;
+}
+
+.btn:hover {
+    background: #4f46e5;
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+}
+
+/* Divider */
+.divider {
+    margin: 20px 0;
+    color: #aaa;
+}
+
+/* Links */
+.register-link {
+    margin-top: 15px;
+    color: #aaa;
+}
+
+.register-link a {
+    color: #6366f1;
+    text-decoration: none;
+}
