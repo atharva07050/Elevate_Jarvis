@@ -7,6 +7,9 @@ import CrashPlan from "@/components/features/CrashPlan";
 import PressureTest from "@/components/features/PressureTest";
 import MockInterview from "@/components/features/MockInterview";
 import AIRecruiter from "@/components/features/AIRecruiter";
+import CultureFit from "@/components/features/CultureFit";
+import Portfolio from "@/components/features/Portfolio";
+import SkillRoadmap from "@/components/features/SkillRoadmap";
 import {
   LayoutDashboard,
   FileText,
@@ -19,7 +22,10 @@ import {
   User,
   ChevronRight,
   Target,
-  Zap
+  Zap,
+  Building2,
+  Globe,
+  Map
 } from "lucide-react";
 import Login from "@/components/auth/Login";
 import PlacementBot from "@/components/features/PlacementBot";
@@ -46,6 +52,9 @@ const NAV_ITEMS = [
   { id: "plan", label: "7-Day Plan", icon: Calendar },
   { id: "pressure", label: "Pressure Test", icon: Timer },
   { id: "mock", label: "Mock Interview", icon: MessageSquare },
+  { id: "culture", label: "Culture Fit", icon: Building2 },
+  { id: "portfolio", label: "AI Portfolio", icon: Globe },
+  { id: "roadmap", label: "Roadmap to Hire", icon: Map },
 ];
 
 export default function App() {
@@ -202,6 +211,15 @@ export default function App() {
                 </TabsContent>
                 <TabsContent value="mock" className="m-0 h-full">
                   <MockInterview />
+                </TabsContent>
+                <TabsContent value="culture" className="m-0 h-full">
+                  <CultureFit />
+                </TabsContent>
+                <TabsContent value="portfolio" className="m-0 h-full">
+                  <Portfolio />
+                </TabsContent>
+                <TabsContent value="roadmap" className="m-0 h-full">
+                  <SkillRoadmap />
                 </TabsContent>
               </div>
             </Tabs>

@@ -247,3 +247,38 @@ Return a valid JSON array matching this exact schema:
     }));
   }
 }
+
+/**
+ * Generic chat message sender with fallback (Agnostic of feature)
+ */
+export async function sendChatMessage(
+  history: { role: "user" | "model", text: string }[], 
+  message: string
+) {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const chat = model.startChat({
+      history: history.map(m => ({
+        role: m.role,
+        parts: [{ text: m.text }]
+      }))
+    });
+    const result = await chat.sendMessage(message);
+    return result.response.text();
+  } catch (err) {
+    console.warn("Gemini Chat failed, falling back to Groq...", err);
+    try {
+      const completion = await groq.chat.completions.create({
+        messages: [
+          ...history.map(m => ({ role: m.role === "model" ? "assistant" as const : "user" as const, content: m.text })),
+          { role: "user", content: message }
+        ],
+        model: "llama-3.3-70b-versatile",
+      });
+      return completion.choices[0]?.message?.content || "";
+    } catch (groqErr) {
+      console.error("Chat services failed:", groqErr);
+      throw new Error("AI Chat services unavailable.");
+    }
+  }
+}
