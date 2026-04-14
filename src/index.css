@@ -122,4 +122,47 @@
     border-color: rgba(47, 47, 228, 0.6);
     box-shadow: 0 12px 30px -10px rgba(47, 47, 228, 0.3);
   }
+
+  /* Bhoomi's Dynamic Background Glow */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50vw;
+    height: 50vh;
+    background: #2F2FE4; /* Vibrant Primary */
+    filter: blur(250px);
+    border-radius: 50%;
+    animation: moveGlow 12s infinite alternate ease-in-out;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    top: 20%;
+    right: 10%;
+    width: 40vw;
+    height: 40vh;
+    background: #5b21b6; /* Deep Purple */
+    filter: blur(250px);
+    border-radius: 50%;
+    animation: moveGlowReverse 15s infinite alternate-reverse ease-in-out;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.4;
+  }
 }
+
+@keyframes moveGlow {
+    0% { transform: translate(-30%, -30%); }
+    100% { transform: translate(30%, 30%); }
+}
+
+@keyframes moveGlowReverse {
+    0% { transform: translate(30%, 30%); }
+    100% { transform: translate(-30%, -30%); }
+}
